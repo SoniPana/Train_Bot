@@ -28,13 +28,11 @@ dict = {'59/60':'常磐線[水戸～いわき]', '166/0':'水郡線', '167/0':'�
 
 #辞書の長さ分実行
 for key in dict:
-    url_text = requests.get('https://transit.yahoo.co.jp/diainfo/' + key)
+    url = 'https://transit.yahoo.co.jp/diainfo/' + key
+    url_text = requests.get(url)
     soup = BeautifulSoup(url_text.text, 'html.parser')
-    if soup.find('dd', class_='trouble'):
-        li = soup.find('dd', class_='trouble')
-        li = [i.strip() for i in li.text.splitlines()]
-        li = [i for i in li if i != ""]
-        message = str(dict[key]) + 'は' + li[0]
+    if soup.find('dd', class_='trouble'):]
+        message = '⚠' + str(dict[key]) + 'は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n' + url
         payload = {'message': message}
-        r = requests.post(line_url, headers=headers, params=payload,)
-        api.update_status(status=message)
+        #r = requests.post(line_url, headers=headers, params=payload,)
+        api.update_status_with_image(status=message, filename='delay.png')
