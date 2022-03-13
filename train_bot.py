@@ -18,9 +18,9 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 #LINEの設定
-line_access_token  = settings.LN
-line_url = 'https://notify-api.line.me/api/notify'
-headers = {'Authorization': 'Bearer ' + line_access_token}
+#line_access_token  = settings.LN
+#line_url = 'https://notify-api.line.me/api/notify'
+#headers = {'Authorization': 'Bearer ' + line_access_token}
 
 #------------------------------------------------------------------
 #辞書を作成
