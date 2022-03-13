@@ -32,7 +32,7 @@ for key in dict:
     url_text = requests.get(url)
     soup = BeautifulSoup(url_text.text, 'html.parser')
     if soup.find('dd', class_='trouble'):
-        message = '⚠' + str(dict[key]) + 'は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n' + url
+        message = '⚠「' + str(dict[key]) + '」は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n\n' + url
         payload = {'message': message}
         #r = requests.post(line_url, headers=headers, params=payload,)
         api.update_status_with_media(status=message, filename='delay.png')
