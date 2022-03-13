@@ -31,7 +31,7 @@ for key in dict:
     url = 'https://transit.yahoo.co.jp/diainfo/' + key
     url_text = requests.get(url)
     soup = BeautifulSoup(url_text.text, 'html.parser')
-    if soup.find('dd', class_='trouble'):]
+    if soup.find('dd', class_='trouble'):
         message = '⚠' + str(dict[key]) + 'は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n' + url
         payload = {'message': message}
         #r = requests.post(line_url, headers=headers, params=payload,)
