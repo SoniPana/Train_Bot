@@ -35,4 +35,4 @@ for key in dict:
         message = '⚠' + str(dict[key]) + 'は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n' + url
         payload = {'message': message}
         #r = requests.post(line_url, headers=headers, params=payload,)
-        api.update_status_with_image(status=message, filename='delay.png')
+        api.update_status_with_(status=message, filename='delay.png')
