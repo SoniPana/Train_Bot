@@ -1,0 +1,40 @@
+import settings
+import tweepy
+import requests
+from bs4 import BeautifulSoup
+
+#------------------------------------------------------------------
+# keyの指定(情報漏えいを防ぐため伏せています)
+consumer_key = settings.CK
+consumer_secret = settings.CS
+access_token = settings.AT
+access_token_secret = settings.ATC
+
+# tweepyの設定(認証情報を設定)
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+# tweepyの設定(APIインスタンスの作成)
+api = tweepy.API(auth)
+
+#LINEの設定
+line_access_token  = settings.LN
+line_url = 'https://notify-api.line.me/api/notify'
+headers = {'Authorization': 'Bearer ' + line_access_token}
+
+#------------------------------------------------------------------
+#辞書を作成
+dict = {'59/60':'常磐線[水戸～いわき]', '166/0':'水郡線', '167/0':'水戸線', '76/0':'鹿島線'}
+
+#辞書の長さ分実行
+for key in dict:
+    url_text = requests.get('https://transit.yahoo.co.jp/diainfo/' + key)
+    soup = BeautifulSoup(url_text.text, 'html.parser')
+    if soup.find('dd', class_='trouble'):
+        li = soup.find('dd', class_='trouble')
+        li = [i.strip() for i in li.text.splitlines()]
+        li = [i for i in li if i != ""]
+        message = str(dict[key]) + 'は' + li[0]
+        payload = {'message': message}
+        r = requests.post(line_url, headers=headers, params=payload,)
+        api.update_status(status=message)
