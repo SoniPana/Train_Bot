@@ -122,8 +122,7 @@ for key in dict:
       #r = requests.post(line_url, headers=headers, params=payload,)
       api.update_status_with_media(status=message, filename='delay.png')
     else:
-      #message = '✔「' + str(dict[key]) + '」の遅延・運休は解消され、現在は正常に運行しています。'
-      #payload = {'message': message}
-      #r = requests.post(line_url, headers=headers, params=payload,)
-      #api.update_status_with_media(status=message, filename='good.png')
-      print(aaa)
+      message = '✔「' + str(dict[key]) + '」の遅延・運休は解消され、現在は正常に運行しています。'
+      payload = {'message': message}
+      r = requests.post(line_url, headers=headers, params=payload,)
+      api.update_status_with_media(status=message, filename='good.png')
