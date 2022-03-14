@@ -93,7 +93,7 @@ def search_image(x):
   m = mega.login(email,password)
 
   #画像取得
-  image_pass = '/' + str(dict[key]) + '/upload.png'
+  image_pass = str(dict[key]) + 'upload.png'
   print(image_pass)
   file = m.find(image_pass)
   m.download(file)
