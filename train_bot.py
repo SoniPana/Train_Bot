@@ -88,7 +88,7 @@ def search_image(x):
 #-----------------------------------------------------------------------------
   #Megaにログイン(e-mailとパスワードは伏せています)
   mega = Mega()
-   email = settings.EM
+  email = settings.EM
   password = settings.PW
   m = mega.login(email,password)
 
