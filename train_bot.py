@@ -83,23 +83,26 @@ def search_image(x):
 
   # 画像トリミング
   im = Image.open('image.png')
-  im.crop((0, 330, 640, 550)).save('train.png', quality=95)
+  im.crop((0, 330, 640, 550)).save('now.png', quality=95)
 
 #-----------------------------------------------------------------------------
-#Megaにログイン(e-mailとパスワードは伏せています)
-mega = Mega()
-email = settings.EM
-password = settings.PW
-m = mega.login(email,password)
+  #Megaにログイン(e-mailとパスワードは伏せています)
+  mega = Mega()
+   email = settings.EM
+  password = settings.PW
+  m = mega.login(email,password)
 
-#画像取得
-image_pass = key + '/upload.png'
-file = m.find(image_pass)
-m.download(file)
+  #画像取得
+  image_pass = key + '/upload.png'
+  file = m.find(image_pass)
+  m.download(file)
+  
+  img_1 = cv2.imread('now.png')
+  img_2 = cv2.imread(image_pass)
 #-----------------------------------------------------------------------------
 for key in dict:
   search_image(key)
-  if 
+  if if np.array_equal(img_1, img_2) == False:
 
 
 
