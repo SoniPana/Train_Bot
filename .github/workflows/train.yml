@@ -31,4 +31,5 @@ jobs:
           pip install selenium
           pip install beautifulsoup4
           pip install pillow
+          pip install opencv-python
           python train_bot.py
