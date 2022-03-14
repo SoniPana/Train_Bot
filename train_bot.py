@@ -100,7 +100,7 @@ for key in dict:
   #画像取得
   aaa = dict[key]
   print(aaa)
-  image_pass = dict_name[aaa] + 'png'
+  image_pass = dict_name[aaa] + '.png'
   print(image_pass)
   file = m.find(image_pass)
   m.download(file)
@@ -111,7 +111,7 @@ for key in dict:
   #画像が同じかチェック
   if np.array_equal(img_1, img_2) == False:
     #既にある画像を削除後、アップロード
-    os.remove('upload.png')
+    os.remove(image_pass)
     os.rename('now.png', image_pass)
     file = m.find(image_pass)
     m.delete(file[0])
