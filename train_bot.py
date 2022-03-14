@@ -84,7 +84,7 @@ for key in dict:
 
   # 画像トリミング
   im = Image.open('image.png')
-  im.crop((0, 280, 640, 350)).save('now.png', quality=95)
+  im.crop((0, 270, 640, 350)).save('now.png', quality=95)
 #-----------------------------------------------------------------------------
   #Megaにログイン(e-mailとパスワードは伏せています)
   mega = Mega()
