@@ -38,7 +38,7 @@ api = tweepy.API(auth)
 #辞書を作成
 dict = {'59/60':'常磐線[水戸～いわき]', '166/0':'水郡線', '167/0':'水戸線', '76/0':'鹿島線'}
 
-def search_image(x):
+for key in dict:
   # Chromeヘッドレスモード起動
   options = webdriver.ChromeOptions()
   options.headless = True
@@ -60,7 +60,7 @@ def search_image(x):
   folderPath = fileNamePrefix
 
   # サイトURL取得
-  url = 'https://transit.yahoo.co.jp/diainfo/' + x
+  url = 'https://transit.yahoo.co.jp/diainfo/' + key
   driver.get(url)
   WebDriverWait(driver, 15).until(EC.presence_of_all_elements_located)
   
@@ -101,9 +101,8 @@ def search_image(x):
   
   img_1 = cv2.imread('now.png')
   img_2 = cv2.imread(image_pass)
-#-----------------------------------------------------------------------------
-for key in dict:
-  search_image(key)
+  
+  #画像が同じかチェック
   if np.array_equal(img_1, img_2) == False:
     #既にある画像を削除後、アップロード
     os.remove('upload.png')
