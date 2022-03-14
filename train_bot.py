@@ -126,3 +126,4 @@ for key in dict:
       #payload = {'message': message}
       #r = requests.post(line_url, headers=headers, params=payload,)
       #api.update_status_with_media(status=message, filename='good.png')
+      print(aaa)
