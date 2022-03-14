@@ -84,7 +84,7 @@ for key in dict:
 
   # 画像トリミング
   im = Image.open('image.png')
-  im.crop((0, 180, 640, 300)).save('now.png', quality=95)
+  im.crop((0, 180, 640, 350)).save('now.png', quality=95)
   message = 'てすと'
   payload = {'message': message}
   api.update_status_with_media(status=message, filename='now.png')
