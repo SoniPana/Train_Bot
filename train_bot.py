@@ -98,6 +98,7 @@ for key in dict:
 
   #画像取得
   aaa = dict[key]
+  print(aaa)
   image_pass = aaa[key] + 'png'
   print(image_pass)
   file = m.find(image_pass)
