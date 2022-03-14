@@ -91,6 +91,8 @@ for key in dict:
   email = settings.EM
   password = settings.PW
   m = mega.login(email,password)
+  linux = m.get_files()
+  print(linux)
 
   #画像取得
   image_pass = dict[key] + '.png'
