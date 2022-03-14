@@ -2,6 +2,11 @@ import settings
 import tweepy
 import requests
 import time
+import shutil
+import os
+import cv2 
+import numpy as np
+from mega import Mega
 from PIL import Image
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -30,54 +35,73 @@ api = tweepy.API(auth)
 #headers = {'Authorization': 'Bearer ' + line_access_token}
 
 #------------------------------------------------------------------
-# Chromeヘッドレスモード起動
-options = webdriver.ChromeOptions()
-options.headless = True
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome('chromedriver',options=options)
-driver.implicitly_wait(10)
-
-# ファイル名接頭辞
-fileNamePrefix = 'image'
-
-# ウインドウ幅指定
-windowSizeWidth = 800
-
-# ウインドウ高さ指定
-windowSizeHeight = 600
-
-# パス指定
-folderPath = fileNamePrefix
-
-# サイトURL取得
-driver.get(url)
-WebDriverWait(driver, 15).until(EC.presence_of_all_elements_located)
-  
-# ウインドウ幅・高さ指定
-windowWidth = windowSizeWidth if windowSizeWidth else driver.execute_script('return document.body.scrollWidth;')
-windowHeight = windowSizeHeight if windowSizeHeight else driver.execute_script('return document.body.scrollHeight;')
-driver.set_window_size(windowWidth, windowHeight)
-
-# 処理後一時待機
-time.sleep(2)
-
-# スクリーンショット格納
-driver.save_screenshot('image.png')
-
-# サーバー負荷軽減処理
-time.sleep(1)
-
-# ブラウザ稼働終了
-driver.quit()
-
-# 画像トリミング
-im = Image.open('image.png')
-im.crop((0, 330, 640, 550)).save('train.png', quality=95)
-
-
 #辞書を作成
 dict = {'59/60':'常磐線[水戸～いわき]', '166/0':'水郡線', '167/0':'水戸線', '76/0':'鹿島線'}
+
+def search_image(x):
+  # Chromeヘッドレスモード起動
+  options = webdriver.ChromeOptions()
+  options.headless = True
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+  driver = webdriver.Chrome('chromedriver',options=options)
+  driver.implicitly_wait(10)
+
+  # ファイル名接頭辞
+  fileNamePrefix = 'image'
+
+  # ウインドウ幅指定
+  windowSizeWidth = 800
+
+  # ウインドウ高さ指定
+  windowSizeHeight = 600
+
+  # パス指定
+  folderPath = fileNamePrefix
+
+  # サイトURL取得
+  url = 'https://transit.yahoo.co.jp/diainfo/' + x
+  driver.get(url)
+  WebDriverWait(driver, 15).until(EC.presence_of_all_elements_located)
+  
+  # ウインドウ幅・高さ指定
+  windowWidth = windowSizeWidth if windowSizeWidth else driver.execute_script('return document.body.scrollWidth;')
+  windowHeight = windowSizeHeight if windowSizeHeight else driver.execute_script('return document.body.scrollHeight;')
+  driver.set_window_size(windowWidth, windowHeight)
+
+  # 処理後一時待機
+  time.sleep(2)
+
+  # スクリーンショット格納
+  driver.save_screenshot('image.png')
+
+  # サーバー負荷軽減処理
+  time.sleep(1)
+
+  # ブラウザ稼働終了
+  driver.quit()
+
+  # 画像トリミング
+  im = Image.open('image.png')
+  im.crop((0, 330, 640, 550)).save('train.png', quality=95)
+
+#-----------------------------------------------------------------------------
+#Megaにログイン(e-mailとパスワードは伏せています)
+mega = Mega()
+email = settings.EM
+password = settings.PW
+m = mega.login(email,password)
+
+#画像取得
+image_pass = key + '/upload.png'
+file = m.find(image_pass)
+m.download(file)
+#-----------------------------------------------------------------------------
+for key in dict:
+  search_image(key)
+  if 
+
+
 
 #辞書の長さ分実行
 for key in dict:
