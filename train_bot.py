@@ -93,7 +93,7 @@ def search_image(x):
   m = mega.login(email,password)
 
   #画像取得
-  image_pass = key + '/upload.png'
+  image_pass = str(dict[key]) + '/upload.png'
   file = m.find(image_pass)
   m.download(file)
   
@@ -117,7 +117,7 @@ for key in dict:
     else:
       message = '⚠「' + str(dict[key]) + '」は現在正常に運行しています。
       payload = {'message': message}
-      api.update_status_with_media(status=message, filename='delay.png')
+      api.update_status(status=message)
 
 
 
