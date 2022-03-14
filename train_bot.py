@@ -93,7 +93,8 @@ for key in dict:
   m = mega.login(email,password)
 
   #画像取得
-  image_pass = dict[key] + 'upload.png'
+  image_pass = dict[key] + '.png'
+  print(image_pass)
   file = m.find(image_pass)
   m.download(file)
   
