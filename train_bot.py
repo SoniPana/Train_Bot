@@ -104,11 +104,12 @@ for key in dict:
   print(image_pass)
   file = m.find(image_pass)
   m.download(file)
-  
+#-----------------------------------------------------------------------------
+  #画像比較準備
   img_1 = cv2.imread('now.png')
   img_2 = cv2.imread(image_pass)
   
-  #画像が同じかチェック
+  #画像比較(もし違うなら実行)
   if np.array_equal(img_1, img_2) == False:
     #既にある画像を削除後、アップロード
     os.remove(image_pass)
@@ -124,19 +125,7 @@ for key in dict:
       #r = requests.post(line_url, headers=headers, params=payload,)
       api.update_status_with_media(status=message, filename='delay.png')
     else:
-      message = '✔「' + str(dict[key]) + '」は現在正常に運行しています。'
+      message = '✔「' + str(dict[key]) + '」の遅延・運休は解消され、現在は正常に運行しています。'
       payload = {'message': message}
-      api.update_status(status=message)
-
-
-
-#辞書の長さ分実行
-#for key in dict:
-    #url = 'https://transit.yahoo.co.jp/diainfo/' + key
-    #url_text = requests.get(url)
-    #soup = BeautifulSoup(url_text.text, 'html.parser')
-    #if soup.find('dd', class_='trouble'):
-        #message = '⚠「' + str(dict[key]) + '」は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n\n' + url
-        #payload = {'message': message}
-        #r = requests.post(line_url, headers=headers, params=payload,)
-        #api.update_status_with_media(status=message, filename='delay.png')
+      #r = requests.post(line_url, headers=headers, params=payload,)
+      api.update_status_with_media(status=message, filename='good.png')
