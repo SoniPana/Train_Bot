@@ -36,7 +36,8 @@ api = tweepy.API(auth)
 
 #------------------------------------------------------------------
 #辞書を作成
-dict = {'59/60':{'常磐線[水戸～いわき]':'joban'}, '166/0':{'水郡線':'suigun'}, '167/0':{'水戸線':'mito'}, '76/0':{'鹿島線':'kasima'}}
+dict = {'59/60':'常磐線[水戸～いわき]', '166/0':'水郡線', '167/0':'水戸線', '76/0':'鹿島線'}
+dict_name = {'常磐線[水戸～いわき]':'joban', '水郡線':'suigun', '水戸線':'mito', '鹿島線':'kasima'}
 
 for key in dict:
   # Chromeヘッドレスモード起動
@@ -99,7 +100,7 @@ for key in dict:
   #画像取得
   aaa = dict[key]
   print(aaa)
-  image_pass = aaa[key] + 'png'
+  image_pass = dict_name[aaa] + 'png'
   print(image_pass)
   file = m.find(image_pass)
   m.download(file)
