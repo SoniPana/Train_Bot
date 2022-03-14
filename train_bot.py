@@ -30,9 +30,9 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 #LINEの設定
-#line_access_token  = settings.LN
-#line_url = 'https://notify-api.line.me/api/notify'
-#headers = {'Authorization': 'Bearer ' + line_access_token}
+line_access_token  = settings.LN
+line_url = 'https://notify-api.line.me/api/notify'
+headers = {'Authorization': 'Bearer ' + line_access_token}
 
 #------------------------------------------------------------------
 #辞書を作成
@@ -118,11 +118,15 @@ for key in dict:
     soup = BeautifulSoup(url_text.text, 'html.parser')
     if soup.find('dd', class_='trouble'):
       message = '⚠「' + str(dict[key]) + '」は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n\n' + url
-      payload = {'message': message}
-      #r = requests.post(line_url, headers=headers, params=payload,)
       api.update_status_with_media(status=message, filename='delay.png')
+      li = soup.find('dd', class_='trouble')
+      li = [i.strip() for i in li.text.splitlines()]
+      li = [i for i in li if i != ""]
+      message = str(dict[key]) + 'は' + li[0]
+      payload = {'message': message}
+      r = requests.post(line_url, headers=headers, params=payload,)
     else:
       message = '✔「' + str(dict[key]) + '」の遅延・運休は解消され、現在は正常に運行しています。'
       payload = {'message': message}
-      #r = requests.post(line_url, headers=headers, params=payload,)
+      r = requests.post(line_url, headers=headers, params=payload,)
       api.update_status_with_media(status=message, filename='good.png')
