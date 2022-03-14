@@ -103,6 +103,21 @@ def search_image(x):
 for key in dict:
   search_image(key)
   if if np.array_equal(img_1, img_2) == False:
+    #既にある画像を削除後、アップロード
+    os.remove('upload.png')
+    os.rename('now.png', 'upload.png')
+    file = m.find(image_pass)
+    m.delete(file[0])
+    m.upload(image_pass)
+    if soup.find('dd', class_='trouble'):
+      message = '⚠「' + str(dict[key]) + '」は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n\n' + url
+      payload = {'message': message}
+      #r = requests.post(line_url, headers=headers, params=payload,)
+      api.update_status_with_media(status=message, filename='delay.png')
+    else:
+      message = '⚠「' + str(dict[key]) + '」は現在正常に運行しています。
+      payload = {'message': message}
+      api.update_status_with_media(status=message, filename='delay.png')
 
 
 
