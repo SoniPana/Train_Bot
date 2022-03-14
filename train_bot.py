@@ -110,6 +110,8 @@ for key in dict:
     file = m.find(image_pass)
     m.delete(file[0])
     m.upload(image_pass)
+    url_text = requests.get(url)
+    soup = BeautifulSoup(url_text.text, 'html.parser')
     if soup.find('dd', class_='trouble'):
       message = '⚠「' + str(dict[key]) + '」は現在正常に運行していません。\n詳細は下のURLからご確認下さい。(Yahoo路線情報)\n\n' + url
       payload = {'message': message}
