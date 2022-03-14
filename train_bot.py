@@ -93,9 +93,7 @@ for key in dict:
   m = mega.login(email,password)
 
   #画像取得
-  #image_pass = str(dict[key]) + 'upload.png'
-  image_pass = 'upload.png'
-  print(image_pass)
+  image_pass = dict[key] + 'upload.png'
   file = m.find(image_pass)
   m.download(file)
   
@@ -106,7 +104,7 @@ for key in dict:
   if np.array_equal(img_1, img_2) == False:
     #既にある画像を削除後、アップロード
     os.remove('upload.png')
-    os.rename('now.png', 'upload.png')
+    os.rename('now.png', image_pass)
     file = m.find(image_pass)
     m.delete(file[0])
     m.upload(image_pass)
@@ -118,7 +116,7 @@ for key in dict:
       #r = requests.post(line_url, headers=headers, params=payload,)
       api.update_status_with_media(status=message, filename='delay.png')
     else:
-      message = '⚠「' + str(dict[key]) + '」は現在正常に運行しています。'
+      message = '✔「' + str(dict[key]) + '」は現在正常に運行しています。'
       payload = {'message': message}
       api.update_status(status=message)
 
