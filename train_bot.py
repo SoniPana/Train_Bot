@@ -102,7 +102,7 @@ def search_image(x):
 #-----------------------------------------------------------------------------
 for key in dict:
   search_image(key)
-  if if np.array_equal(img_1, img_2) == False:
+  if np.array_equal(img_1, img_2) == False:
     #既にある画像を削除後、アップロード
     os.remove('upload.png')
     os.rename('now.png', 'upload.png')
