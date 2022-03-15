@@ -84,7 +84,7 @@ for key in dict:
 
   # 画像トリミング
   im = Image.open('image.png')
-  im.crop((0, 270, 640, 350)).save('now.png', quality=95)
+  im.crop((0, 270, 640, 310)).save('now.png', quality=95)
 #-----------------------------------------------------------------------------
   #Megaにログイン(e-mailとパスワードは伏せています)
   mega = Mega()
@@ -124,9 +124,9 @@ for key in dict:
       li = [i for i in li if i != ""]
       message = str(dict[key]) + 'は' + li[0]
       payload = {'message': message}
-      r = requests.post(line_url, headers=headers, params=payload,)
+      #r = requests.post(line_url, headers=headers, params=payload,)
     else:
       message = '✔「' + str(dict[key]) + '」の遅延・運休は解消され、現在は正常に運行しています。'
       payload = {'message': message}
-      r = requests.post(line_url, headers=headers, params=payload,)
+      #r = requests.post(line_url, headers=headers, params=payload,)
       api.update_status_with_media(status=message, filename='good.png')
